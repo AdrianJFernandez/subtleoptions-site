@@ -2,50 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Subtle Options</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f4f4f4;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    .button-group {
-      margin-top: 30px;
-    }
-
-    .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #1f7aec;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #155eb6;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Subtle Options</title>
 </head>
 <body>
-  <h1>Welcome to Subtle Options 👋</h1>
-  <p>Explore the pages below to learn more or test site behavior.</p>
+  <h1>Welcome to Subtle Options</h1>
+  <p>This site is secured, accelerated, and protected by Cloudflare.</p>
 
-  <div class="button-group">
-    <a href="about.html" class="button">About</a>
-    <a href="contact.html" class="button">Contact</a>
-    <a href="404.html" class="button">Test 404 Page</a>
-  </div>
+  <h2>🔗 Demo Pages</h2>
+  <ul>
+    <li><a href="about.html">About Page</a> – Static content (for performance and caching demos)</li>
+    <li><a href="contact.html">Contact Form</a> – Use for WAF + Rate Limiting demo</li>
+    <li><a href="internal.html">Internal Page</a> – Identity-aware access with Cloudflare Access</li>
+    <li><a href="404.html">404 Error Page</a> – Custom error handling</li>
+  </ul>
+
+  <h2>🔒 Powered by Cloudflare</h2>
+  <ul>
+    <li>Free SSL/TLS & HTTPS enforcement</li>
+    <li>Page Rules for caching</li>
+    <li>Web Application Firewall (WAF)</li>
+    <li>Rate Limiting</li>
+    <li>Cloudflare Access (Zero Trust)</li>
+  </ul>
+
+  <p>Demo maintained by Adrian J. Fernandez</p>
 </body>
 </html>
-
