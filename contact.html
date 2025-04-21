@@ -2,15 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Contact - Subtle Options</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
 </head>
 <body>
-  <h1>Contact Me</h1>
-  <p>Reach out through LinkedIn or wherever else — this is just for testing ✌️</p>
+  <h1>Contact Us</h1>
+  <p>Please fill out the form below to get in touch. (This form is protected by Cloudflare!)</p>
 
-  <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a>
-  </nav>
+  <form action="/submit" method="POST">
+    <label for="name">Full Name:</label><br />
+    <input type="text" id="name" name="name" required /><br /><br />
+
+    <label for="email">Email Address:</label><br />
+    <input type="email" id="email" name="email" required /><br /><br />
+
+    <label for="subject">Subject:</label><br />
+    <input type="text" id="subject" name="subject" /><br /><br />
+
+    <label for="message">Message:</label><br />
+    <textarea id="message" name="message" rows="5" cols="40" required></textarea><br /><br />
+
+    <!-- Honeypot field to catch bots -->
+    <input type="text" name="hiddenField" style="display:none;" />
+
+    <button type="submit">Send Message</button>
+  </form>
 </body>
 </html>
