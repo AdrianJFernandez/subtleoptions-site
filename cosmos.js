@@ -42,9 +42,16 @@
 
     let navigating = false;
 
-    window.addEventListener("pageshow", () => {
-      document.body.classList.remove("nav-warping-out", "nav-warping-in");
+    window.addEventListener("pageshow", (event) => {
       navigating = false;
+      /* Leaving the page resets nav-warping-out when the unload finishes; only strip it here
+         if navigation was aborted. ALWAYS stripping nav-warping-in broke entry: pageshow fires
+         after load, which raced our initWarpEntry rAF animation. */
+      document.body.classList.remove("nav-warping-out");
+      if (event.persisted) {
+        document.body.classList.remove("nav-warping-in");
+        delete document.body.dataset.warpEntry;
+      }
     });
 
     document.body.addEventListener(
