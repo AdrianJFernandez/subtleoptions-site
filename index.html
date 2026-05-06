@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="An interactive solar-system nav demo: pick a sector (planet) to explore this Cloudflare-hardened static site." />
+  <meta
+    name="description"
+    content="Client-rendered solar-system command UI: Vite + SPA navigation with Cloudflare at the edge."
+  />
   <title>SOL STATION // Orbital Relay</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="cosmos.css" />
 </head>
 <body data-planet="sol">
   <canvas id="starfield" aria-hidden="true"></canvas>
@@ -15,97 +16,7 @@
   <div class="cosmos-scanlines" aria-hidden="true"></div>
   <div class="cosmos-noise" aria-hidden="true"></div>
 
-  <div class="page-shell">
-    <a class="skip-link" href="#main">Skip to mission map</a>
-
-    <header class="cosmos-header">
-      <div class="hud-panel">
-        <div class="hud-titlebar">
-          <span>SEC_NODE // SOL_STATION</span>
-          <span class="status-pill">UPLINK: ENCRYPTED</span>
-        </div>
-        <div class="hud-body">
-          <p class="glitch-wrap">
-            <span class="glitch" data-text="ORBITAL RELAY ONLINE">ORBITAL RELAY ONLINE</span>
-          </p>
-          <p class="lede">
-            Pick a world to route through. This grid is just static HTML/CSS/JS—no engine,
-            no build step—only Cloudflare in front doing the real guard duty.
-          </p>
-        </div>
-      </div>
-    </header>
-
-    <main id="main" class="cosmos-main">
-      <div class="hud-panel">
-        <div class="hud-titlebar">
-          <span>SECTOR_MAP // HELIOCENTRIC</span>
-          <span class="status-pill"> POINTER: PLANETARY_LINKS</span>
-        </div>
-        <div class="hud-body">
-          <noscript><p>This map uses JavaScript for the starfield and parallax—links still work without it.</p></noscript>
-          <div class="solar-stage">
-            <div class="orbit-field" id="orbitField">
-              <div class="sun-core" aria-hidden="true"></div>
-              <nav aria-label="Choose destination by planet">
-                <ul class="planet-list">
-                  <li
-                    class="planet-slot node-chaos"
-                    style="--angle: 0deg; --orbit-r: min(38vw, 210px)"
-                  >
-                    <a href="about.html" class="planet-hit" aria-label="Mars — About this site">
-                      <span class="planet-visual skin-mars"></span>
-                      <span class="planet-label">Mars<br />Intel / About</span>
-                    </a>
-                  </li>
-                  <li
-                    class="planet-slot node-chaos"
-                    style="--angle: 90deg; --orbit-r: min(38vw, 210px)"
-                  >
-                    <a href="contact.html" class="planet-hit" aria-label="Earth — Contact">
-                      <span class="planet-visual skin-earth"></span>
-                      <span class="planet-label">Earth<br />Comms / Contact</span>
-                    </a>
-                  </li>
-                  <li
-                    class="planet-slot node-chaos"
-                    style="--angle: 180deg; --orbit-r: min(38vw, 210px)"
-                  >
-                    <a href="internal.html" class="planet-hit" aria-label="Neptune — Internal redirect">
-                      <span class="planet-visual skin-neptune"></span>
-                      <span class="planet-label">Neptune<br />Classified / Internal</span>
-                    </a>
-                  </li>
-                  <li
-                    class="planet-slot node-chaos"
-                    style="--angle: 270deg; --orbit-r: min(38vw, 210px)"
-                  >
-                    <a href="404.html" class="planet-hit" aria-label="Deep space — Demo 404 sector">
-                      <span class="planet-visual skin-void"></span>
-                      <span class="planet-label">The Void<br />404 / Lost signal</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <p class="telemetry" aria-label="Stack telemetry">
-            <code>WAF_ARMED:</code> edge rules hot ·
-            <code>TLS_RING:</code> pinned handshakes ·
-            <code>RLIMIT:</code> token buckets live ·
-            <code>ZT_GATE:</code> Neptune route via Access proxy ·
-            <code>ORIGIN:</code> GitHub Pages + static cosmos bundle
-          </p>
-        </div>
-      </div>
-    </main>
-
-    <footer class="cosmos-footer">
-      Demo maintained by Adrian F · motion respects <code>prefers-reduced-motion</code>
-    </footer>
-  </div>
-
-  <script src="cosmos.js" defer></script>
+  <div id="spa-mount"></div>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
