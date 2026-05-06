@@ -1,5 +1,100 @@
 (function () {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const WARP_STORAGE_KEY = "cosmos-warp-hop";
+
+  function ensureWarpOverlay() {
+    let el = document.getElementById("warp-overlay");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "warp-overlay";
+      el.setAttribute("aria-hidden", "true");
+      document.body.insertBefore(el, document.body.firstChild);
+    }
+    return el;
+  }
+
+  /**
+   * Entry animation: first visit = soft settle; after an in-site jump = burst “drop out of warp”.
+   * Next pass: optional sound + haptics behind a user toggle (e.g. window.cosmosSensory).
+   */
+  function initWarpEntry() {
+    if (reduceMotion) return;
+
+    ensureWarpOverlay();
+    const hop = sessionStorage.getItem(WARP_STORAGE_KEY);
+    sessionStorage.removeItem(WARP_STORAGE_KEY);
+    document.body.dataset.warpEntry = hop === "hop" ? "burst" : "soft";
+
+    window.requestAnimationFrame(() => {
+      document.body.classList.add("nav-warping-in");
+      const dur = hop === "hop" ? 720 : 520;
+      window.setTimeout(() => {
+        document.body.classList.remove("nav-warping-in");
+        delete document.body.dataset.warpEntry;
+      }, dur);
+    });
+  }
+
+  function initWarpNavigation() {
+    if (reduceMotion) return;
+
+    ensureWarpOverlay();
+
+    let navigating = false;
+
+    window.addEventListener("pageshow", () => {
+      document.body.classList.remove("nav-warping-out", "nav-warping-in");
+      navigating = false;
+    });
+
+    document.body.addEventListener(
+      "click",
+      (event) => {
+        if (navigating) return;
+
+        const anchor = event.target.closest("a[href]");
+        if (!anchor) return;
+        if (event.defaultPrevented) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (event.button !== 0) return;
+
+        const rawHref = (anchor.getAttribute("href") || "").trim();
+        if (!rawHref || rawHref.startsWith("#")) return;
+        if (/^javascript:/i.test(rawHref)) return;
+
+        let targetUrl;
+        try {
+          targetUrl = new URL(anchor.href);
+        } catch {
+          return;
+        }
+
+        if (targetUrl.protocol !== "http:" && targetUrl.protocol !== "https:") return;
+        if (targetUrl.origin !== location.origin) return;
+        if (anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+
+        const normalized = targetUrl.href.replace(/#.*$/, "");
+        const normalizedHere = location.href.replace(/#.*$/, "");
+        if (normalized === normalizedHere) return;
+
+        const pathname = targetUrl.pathname;
+        const file = pathname.endsWith("/") ? "index.html" : pathname.split("/").pop() || "";
+        const isHtmlish = /\.html?$/i.test(file) || pathname.endsWith("/") || file === "";
+
+        if (!isHtmlish) return;
+
+        event.preventDefault();
+        navigating = true;
+        sessionStorage.setItem(WARP_STORAGE_KEY, "hop");
+        document.body.classList.add("nav-warping-out");
+
+        window.setTimeout(() => {
+          window.location.assign(anchor.href);
+        }, 580);
+      },
+      false,
+    );
+  }
 
   function resizeCanvas(canvas, ctx) {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -111,7 +206,9 @@
     });
   }
 
+  initWarpEntry();
   initStarfield();
   initOrbitParallax();
   initNodeChaos();
+  initWarpNavigation();
 })();
