@@ -3,20 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="This page could not be found. Return to the home page from here." />
-  <title>404 - Page Not Found</title>
+  <meta name="description" content="Signal lost in deep space — return to Sol station." />
+  <title>VOID // Signal Lost</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cosmos.css" />
 </head>
-<body>
-  <header>
-    <h1>Oops! Page not found.</h1>
-  </header>
+<body data-planet="void">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="cosmos-bg" aria-hidden="true"></div>
+  <div class="cosmos-vignette" aria-hidden="true"></div>
+  <div class="cosmos-scanlines" aria-hidden="true"></div>
+  <div class="cosmos-noise" aria-hidden="true"></div>
 
-  <main>
-    <p>Let’s get you back on track:</p>
-    <nav aria-label="Site">
-      <a href="index.html">Return Home</a>
-    </nav>
-  </main>
+  <div class="page-shell">
+    <a class="skip-link" href="#main">Skip to recovery link</a>
+
+    <header class="cosmos-header">
+      <div class="hud-panel">
+        <div class="hud-titlebar">
+          <span>DEEP_VOID // NO_ROUTE</span>
+          <span class="status-pill">HTTP_404</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="cosmos-main">
+      <div class="hud-panel">
+        <div class="hud-titlebar">
+          <span>TRACE_FAILED</span>
+          <span class="status-pill">checksum mismatch</span>
+        </div>
+        <div class="hud-body">
+          <div class="hero-orbit">
+            <div class="planet-badge node-chaos" aria-hidden="true">
+              <span class="planet-visual skin-void"></span>
+            </div>
+            <div class="hero-copy">
+              <h1 class="signal-lost">NO FIXED POINT IN VECTOR SPACE</h1>
+              <p class="lede">
+                Whatever you punched in—it isn’t anchored in this constellation. Warp back to Sol before
+                the WAF thinks you’re scanning ports for fun.
+              </p>
+            </div>
+          </div>
+
+          <nav class="subpage-nav" aria-label="Navigation">
+            <a href="index.html">Rewind to Sol map</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+
+    <footer class="cosmos-footer">THE VOID · coordinates undefined</footer>
+  </div>
+
+  <script src="cosmos.js" defer></script>
 </body>
 </html>
